@@ -8,7 +8,13 @@ A tiny macOS menu bar app that shows your Claude subscription usage.
 
 The menu bar shows how much of the 5-hour window you have used and when it resets, as in `65%·5:20pm`. It updates every 5 minutes. The dropdown adds the 7-day window.
 
-Inspired by [Claude Usage Tracker](https://github.com/hamed-elfayome/Claude-Usage-Tracker) by [@hamed-elfayome](https://github.com/hamed-elfayome), which is also where the rate-limit header approach comes from. This is a stripped-down version: just the usage reading, with no settings, profiles or updater.
+This is a fork of [Claude Usage Tracker](https://github.com/hamed-elfayome/Claude-Usage-Tracker) by [@hamed-elfayome](https://github.com/hamed-elfayome), which is also where the rate-limit header approach comes from.
+
+## Fork history
+
+The [`feature/reset-notifications`](https://github.com/25qi/claude-usage-tide/tree/feature/reset-notifications) branch holds changes made to the upstream app: reset notifications, the reset time in the menu bar, and a series of OAuth fixes. One of those fixes had the app refresh Claude Code's token itself. Refresh tokens are single-use, so with two processes rotating the same token the server revoked it and Claude Code was logged out ([d343aee](https://github.com/25qi/claude-usage-tide/commit/d343aee)).
+
+The `tide` branch, the default, is a rewrite from scratch: about 600 lines of Swift, just the usage reading, with no settings, profiles or updater. It reads the token but never refreshes it, for the reason above.
 
 ## Install
 
