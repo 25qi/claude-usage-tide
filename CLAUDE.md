@@ -26,7 +26,18 @@ This repo is a GitHub fork of `hamed-elfayome/Claude-Usage-Tracker`, but the cod
 
 - `tide` is the default branch and holds this app. Upstream's branches (`main`, `next-release`, `gh-pages`) are upstream code, so never merge them into `tide`.
 - `feature/reset-notifications` and `fix/oauth-refresh-deadlock` are earlier changes to the upstream app, kept for reference.
-- Release tags are `tide-vX.Y.Z`, because upstream already owns `vX.Y.Z` in this fork. A release means updating the formula's `url` and `sha256` in `25qi/homebrew-tap` to the new tag's archive.
+- Local `main` tracks `origin/tide`, not `origin/main`. Push with `git push origin HEAD:tide`.
+- Upstream contributions are not planned. `gh` is set to default to `25qi/claude-usage-tide` (`gh repo set-default`), so `gh pr create` and similar commands don't target upstream. Pass `-R 25qi/claude-usage-tide` if that setting is missing.
+- `25qi/claude-usage-tide-standalone` is the archived pre-fork copy of the same `tide` history. Don't push to it.
+
+## Releasing
+
+Release tags are `tide-vX.Y.Z`, because upstream already owns `vX.Y.Z` in this fork.
+
+1. Bump `CFBundleShortVersionString` and `CFBundleVersion` in `bundle.sh`, commit, and push to `tide`.
+2. Tag and push: `git tag -a tide-vX.Y.Z -m "Claude Usage Tide X.Y.Z" && git push origin tide-vX.Y.Z`
+3. Get the checksum: `curl -sL https://github.com/25qi/claude-usage-tide/archive/refs/tags/tide-vX.Y.Z.tar.gz | shasum -a 256`
+4. In `25qi/homebrew-tap`, update `url` and `sha256` in `Formula/claude-usage-tide.rb`. It stays a separate repo because Homebrew's short `brew install 25qi/tap/...` form needs a repo named `homebrew-*`.
 
 ## Architecture
 
